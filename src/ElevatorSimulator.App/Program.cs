@@ -39,7 +39,7 @@ while (continueLoop)
 
     if (!_elevatorService.ValidAmountOfFloors(int.Parse(targetFloor)))
     {
-        Console.WriteLine("Invalid amount of floors...");
+        Console.WriteLine("\nInvalid amount of floors...");
         continue;
     }
     

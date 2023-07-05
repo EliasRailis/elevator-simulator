@@ -9,6 +9,10 @@ public sealed class Elevator
     public Status CurrentStatus { get; set; }
     
     public int FloorNumber { get; set; }
+
+    public double WeightLimit { get; set; } = 450.00;
+
+    public int NumberOfPeople { get; set; } = 0;
     
     public Elevator(string id, Status currentStatus, int floorNumber)
     {

@@ -7,13 +7,12 @@ namespace ElevatorSimulator.App.Repository.Implementation;
 public sealed class ElevatorRepository : IElevator
 {
     private int _numOfFloors = 0;
-    private int _numOfElevators = 0;
+    private int _targetFloor = 0;
     private readonly List<Elevator> Elevators = new();
 
     public void GenerateElevators(int numOfFloors, int numOfElevators)
     {
         _numOfFloors = numOfFloors;
-        _numOfElevators = numOfElevators;
 
         var random = new Random();
         for (int i = 0; i < numOfElevators; i++)
@@ -24,11 +23,20 @@ public sealed class ElevatorRepository : IElevator
         PrintElevatorInformation();
     }
 
-    public bool ValidAmountOfFloors(int numOfSelectedFloors) => numOfSelectedFloors < _numOfFloors;
-    
-    public Elevator? GetClosestElevator(int targetFloor)
+    public bool ValidAmountOfFloors(int numOfSelectedFloors)
+    {
+        return numOfSelectedFloors <= _numOfFloors;
+    }
+
+    public bool CheckWeightLimit(double totalWeightOfPeople, Elevator elevator) 
+    {
+        return totalWeightOfPeople < elevator.WeightLimit;
+    }
+
+    public Elevator? GetClosestElevator(int targetFloor, int numberOfPeople)
     {
         Elevator? closestElevator = null;
+        _targetFloor = targetFloor;
         int minDifference = int.MaxValue; 
         
         foreach (var elevator in Elevators)
@@ -41,11 +49,76 @@ public sealed class ElevatorRepository : IElevator
             }
         }
 
-        if (closestElevator is not null) closestElevator.CurrentStatus = Status.CALLED;
+        if (closestElevator is not null)
+        {
+            closestElevator.CurrentStatus = Status.CALLED;
+            closestElevator.NumberOfPeople = numberOfPeople;
+        }
+        
         return closestElevator;
     }
 
-    private void PrintElevatorInformation()
+    public void CallingElevator(Elevator elevator)
+    {
+        switch (elevator.FloorNumber)
+        {
+            case var val when val > _targetFloor:
+                MovingDown(elevator, _targetFloor);
+                Console.WriteLine($"Elevator is on floor {elevator.FloorNumber}");
+                break;
+            case var val when val < _targetFloor:
+                MovingUp(elevator, _targetFloor);
+                Console.WriteLine($"Elevator is on floor {elevator.FloorNumber}");
+                break;
+            default:
+                Console.WriteLine("Elevator in current floor");
+                break;
+        }
+    }
+
+    public void FloorDestination(Elevator elevator, int floorDestination)
+    {
+        Console.WriteLine($"There are {elevator.NumberOfPeople} people in the elevator");
+        switch (elevator.FloorNumber)
+        {
+            case var val when val > floorDestination:
+                MovingDown(elevator, floorDestination);
+                break;
+            case var val when val < floorDestination:
+                MovingUp(elevator, floorDestination);
+                break;
+            default:
+                Console.WriteLine("Elevator in current floor");
+                break;
+        }
+
+        elevator.CurrentStatus = Status.AVAILABLE;
+        Console.WriteLine("People exiting the elevator...");
+    }
+
+    private static void MovingUp(Elevator elevator, int floor)
+    {
+        int diff = floor - elevator.FloorNumber;
+        for (int i = 0; i < diff; i++)
+        {
+            Thread.Sleep(1000);
+            Console.WriteLine($"Elevator going {Status.UP}");
+            elevator.FloorNumber++;
+        }
+    }
+
+    private static void MovingDown(Elevator elevator, int floor)
+    {
+        int diff = elevator.FloorNumber - floor;
+        for (int i = 0; i < diff; i++)
+        {
+            Thread.Sleep(1000);
+            Console.WriteLine($"Elevator going {Status.DOWN}");
+            elevator.FloorNumber--;
+        }
+    }
+
+    public void PrintElevatorInformation()
     {
         if (Elevators.Count == 0) return;
         foreach (var elevator in Elevators)

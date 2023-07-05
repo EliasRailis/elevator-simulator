@@ -8,5 +8,13 @@ public interface IElevator
 
     bool ValidAmountOfFloors(int numOfSelectedFloors);
 
-    Elevator? GetClosestElevator(int targetFloor);
+    bool CheckWeightLimit(double totalWeightOfPeople, Elevator elevator);
+
+    Elevator? GetClosestElevator(int targetFloor, int numberOfPeople);
+
+    void CallingElevator(Elevator elevator);
+
+    void FloorDestination(Elevator elevator, int floorDestination);
+    
+    void PrintElevatorInformation();
 }
