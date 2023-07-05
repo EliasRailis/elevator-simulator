@@ -11,12 +11,11 @@ public class RequestRepository : IRequest
 
     public void GenerateRequest(int numOfPeople, int targetFloor)
     {
-        List<Person> people = GeneratingRandomPeople(numOfPeople); 
+        List<Person> people = GeneratingRandomPeople(numOfPeople, out double totalPeopleWeight); 
         Elevator? elevator = _elevator.GetClosestElevator(targetFloor, people.Count);
 
         if (elevator is null) return;
         
-        double totalPeopleWeight = people.Sum(x => x.Weight);
         bool isInWeightLimit = _elevator.CheckWeightLimit(totalPeopleWeight, elevator);
         
         if (!isInWeightLimit)
@@ -34,7 +33,7 @@ public class RequestRepository : IRequest
         _elevator.PrintElevatorInformation();
     }
 
-    private List<Person> GeneratingRandomPeople(int count)
+    private List<Person> GeneratingRandomPeople(int count, out double totalWeight)
     {
         var people = new List<Person>();
         var random = new Random();
@@ -44,6 +43,8 @@ public class RequestRepository : IRequest
             Console.WriteLine(person.ToString());
             people.Add(person);
         }
+
+        totalWeight = people.Sum(x => x.Weight);
         return people;
     }
 }

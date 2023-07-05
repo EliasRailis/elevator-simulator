@@ -103,6 +103,7 @@ public sealed class ElevatorRepository : IElevator
         {
             Thread.Sleep(1000);
             Console.WriteLine($"Elevator going {Status.UP}");
+            Thread.Sleep(1000);
             elevator.FloorNumber++;
         }
     }
@@ -114,6 +115,7 @@ public sealed class ElevatorRepository : IElevator
         {
             Thread.Sleep(1000);
             Console.WriteLine($"Elevator going {Status.DOWN}");
+            Thread.Sleep(1000);
             elevator.FloorNumber--;
         }
     }
