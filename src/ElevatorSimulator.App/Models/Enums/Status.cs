@@ -4,5 +4,6 @@ public enum Status
 {
     UP,
     DOWN,
-    STOPPED
+    AVAILABLE,
+    CALLED
 }

@@ -1,31 +1,48 @@
-﻿
-using ElevatorSimulator.App.Models;
-using ElevatorSimulator.App.Models.Enums;
+﻿using ElevatorSimulator.App.Repository.Implementation;
+using ElevatorSimulator.App.Repository.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
-Console.Write("Number of floors: ");
-string numberOfFloors = Console.ReadLine() ?? throw new InvalidOperationException();
+var services = new ServiceCollection()
+    .AddSingleton<IRequest, RequestRepository>()
+    .AddSingleton<IElevator, ElevatorRepository>()
+    .BuildServiceProvider();
 
-Console.Write("Number of elevators: ");
-string numberOfElevators = Console.ReadLine() ?? throw new InvalidOperationException();
+Console.Write("Number of Floors: ");
+string floors = Console.ReadLine() ?? throw new InvalidOperationException();
 
-IEnumerable<Elevator> listOfElevators = GenerateElevators(int.Parse(numberOfElevators), int.Parse(numberOfFloors));
+Console.Write("Number of Elevators: ");
+string elevators = Console.ReadLine() ?? throw new InvalidOperationException();
 
-foreach (var elevator in listOfElevators)
+var _elevatorService = services.GetRequiredService<IElevator>();
+var _requestsService = services.GetRequiredService<IRequest>();
+_elevatorService.GenerateElevators(int.Parse(floors), int.Parse(elevators));
+
+bool continueLoop = true;
+while (continueLoop)
 {
-    Console.WriteLine(elevator);
-}
+    Console.Write("Would you like to make a request (y/n): ");
+    string answer = Console.ReadLine() ?? throw new InvalidOperationException();
 
-Console.ReadLine();
-
-IEnumerable<Elevator> GenerateElevators(int numOfElevators, int floors)
-{
-    var elevators = new List<Elevator>();
-    var random = new Random();
-    
-    for (int i = 0; i < numOfElevators; i++)
+    if (answer.ToUpper() == "N")
     {
-        elevators.Add(new Elevator($"EL{i}", Status.STOPPED, random.Next(0, floors + 1)));
+        Console.WriteLine("Exiting...");
+        Thread.Sleep(500);
+        continueLoop = !continueLoop;
+        continue;
     }
+    
+    Console.Write("Amount of people: ");
+    string amountOfPeople = Console.ReadLine() ?? throw new InvalidOperationException();
+    
+    Console.Write("Target floor: ");
+    string targetFloor = Console.ReadLine() ?? throw new InvalidOperationException();
 
-    return elevators;
+    if (!_elevatorService.ValidAmountOfFloors(int.Parse(targetFloor)))
+    {
+        Console.WriteLine("Invalid amount of floors...");
+        continue;
+    }
+    
+    _requestsService.GenerateRequest(int.Parse(amountOfPeople), int.Parse(targetFloor));
+    Console.WriteLine();
 }

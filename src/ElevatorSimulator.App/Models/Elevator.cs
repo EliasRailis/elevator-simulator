@@ -2,4 +2,18 @@
 
 namespace ElevatorSimulator.App.Models;
 
-public record Elevator(string Id, Status CurrentStatus, int FloorNumber);
+public sealed class Elevator
+{
+    public string Id { get; set; }
+    
+    public Status CurrentStatus { get; set; }
+    
+    public int FloorNumber { get; set; }
+    
+    public Elevator(string id, Status currentStatus, int floorNumber)
+    {
+        Id = id;
+        CurrentStatus = currentStatus;
+        FloorNumber = floorNumber;
+    }
+}
