@@ -3,20 +3,20 @@ using ElevatorSimulator.App.Repository.Interfaces;
 
 namespace ElevatorSimulator.App.Repository.Implementation;
 
-public class RequestRepository : IRequest
+public class RequestManager : IRequestManager
 {
-    private readonly IElevator _elevator;
+    private readonly IElevatorManager _elevatorManager;
 
-    public RequestRepository(IElevator elevator) => _elevator = elevator;
+    public RequestManager(IElevatorManager elevator) => _elevatorManager = elevator;
 
     public void GenerateRequest(int numOfPeople, int targetFloor)
     {
         List<Person> people = GeneratingRandomPeople(numOfPeople, out double totalPeopleWeight); 
-        Elevator? elevator = _elevator.GetClosestElevator(targetFloor, people.Count);
+        Elevator? elevator = _elevatorManager.GetClosestElevator(targetFloor, people.Count);
 
         if (elevator is null) return;
         
-        bool isInWeightLimit = _elevator.CheckWeightLimit(totalPeopleWeight, elevator);
+        bool isInWeightLimit = _elevatorManager.CheckWeightLimit(totalPeopleWeight, elevator);
         
         if (!isInWeightLimit)
         {
@@ -25,11 +25,11 @@ public class RequestRepository : IRequest
         }
         
         Console.WriteLine($"\nElevator selected {elevator.Id} {elevator.CurrentStatus}");
-        _elevator.CallingElevator(elevator);
+        _elevatorManager.CallingElevator(elevator);
         
         Print.MoveToInput(out string movingTo);
-        _elevator.FloorDestination(elevator, int.Parse(movingTo));
-        _elevator.PrintElevatorInformation();
+        _elevatorManager.FloorDestination(elevator, int.Parse(movingTo));
+        _elevatorManager.PrintElevatorInformation();
     }
 
     private List<Person> GeneratingRandomPeople(int count, out double totalWeight)

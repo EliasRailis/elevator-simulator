@@ -10,7 +10,7 @@ public sealed class Elevator
     
     public int FloorNumber { get; set; }
 
-    public double WeightLimit { get; set; } = 450.00;
+    public double WeightLimit { get; set; } = 650.00;
 
     public int NumberOfPeople { get; set; } = 0;
     

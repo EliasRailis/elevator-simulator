@@ -2,7 +2,7 @@
 
 namespace ElevatorSimulator.App.Repository.Interfaces;
 
-public interface IElevator
+public interface IElevatorManager
 {
     void GenerateElevators(int numOfFloors, int numOfElevators);
 

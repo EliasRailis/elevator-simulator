@@ -4,7 +4,7 @@ using ElevatorSimulator.App.Repository.Interfaces;
 
 namespace ElevatorSimulator.App.Repository.Implementation;
 
-public sealed class ElevatorRepository : IElevator
+public sealed class ElevatorManager : IElevatorManager
 {
     private int _numOfFloors = 0;
     private int _targetFloor = 0;

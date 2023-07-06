@@ -4,14 +4,14 @@ using ElevatorSimulator.App.Repository.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 var services = new ServiceCollection()
-    .AddSingleton<IRequest, RequestRepository>()
-    .AddSingleton<IElevator, ElevatorRepository>()
+    .AddSingleton<IRequestManager, RequestManager>()
+    .AddSingleton<IElevatorManager, ElevatorManager>()
     .BuildServiceProvider();
 
 Print.GetMainInput(out string floors, out string elevators);
 
-var _elevatorService = services.GetRequiredService<IElevator>();
-var _requestsService = services.GetRequiredService<IRequest>();
+var _elevatorService = services.GetRequiredService<IElevatorManager>();
+var _requestsService = services.GetRequiredService<IRequestManager>();
 _elevatorService.GenerateElevators(int.Parse(floors), int.Parse(elevators));
 
 bool continueLoop = true;

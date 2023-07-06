@@ -1,6 +1,6 @@
 ﻿namespace ElevatorSimulator.App.Repository.Interfaces;
 
-public interface IRequest
+public interface IRequestManager
 {
     void GenerateRequest(int numOfPeople, int targetFloor);
 }
