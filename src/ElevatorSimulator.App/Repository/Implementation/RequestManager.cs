@@ -32,6 +32,12 @@ public class RequestManager : IRequestManager
         _elevatorManager.PrintElevatorInformation();
     }
 
+    /// <summary>
+    /// Method will generate the people data that will enter the elevator
+    /// </summary>
+    /// <param name="count">Number of people</param>
+    /// <param name="totalWeight">Will return the total weight of the people</param>
+    /// <returns>A list object of type <see cref="Person"/></returns>
     private List<Person> GeneratingRandomPeople(int count, out double totalWeight)
     {
         Console.WriteLine("\nGenerating people...");

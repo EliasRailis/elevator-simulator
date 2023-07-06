@@ -10,6 +10,11 @@ public sealed class ElevatorManager : IElevatorManager
     private int _targetFloor = 0;
     private readonly List<Elevator> Elevators = new();
 
+    /// <summary>
+    /// Method generates the elevators used in the application
+    /// </summary>
+    /// <param name="numOfFloors">The number of floors</param>
+    /// <param name="numOfElevators"></param>
     public void GenerateElevators(int numOfFloors, int numOfElevators)
     {
         _numOfFloors = numOfFloors;
@@ -23,16 +28,35 @@ public sealed class ElevatorManager : IElevatorManager
         PrintElevatorInformation();
     }
 
+    /// <summary>
+    /// Method used to check if the requested floor is in the range of available floors
+    /// in the building
+    /// </summary>
+    /// <param name="numOfSelectedFloors">Number of selected floors</param>
+    /// <returns>Boolean response</returns>
     public bool ValidAmountOfFloors(int numOfSelectedFloors)
     {
         return numOfSelectedFloors <= _numOfFloors;
     }
 
+    /// <summary>
+    /// The method will check the weight limit of all the people in the request and will
+    /// check if it's over the weight limit of 500.00kg 
+    /// </summary>
+    /// <param name="totalWeightOfPeople">Total weight of people</param>
+    /// <param name="elevator"><see cref="Elevator"/> nearest elevator object</param>
+    /// <returns>Boolean response</returns>
     public bool CheckWeightLimit(double totalWeightOfPeople, Elevator elevator) 
     {
         return totalWeightOfPeople < elevator.WeightLimit;
     }
 
+    /// <summary>
+    /// Method will get the closest elevator from the list of elevators requested from the used
+    /// </summary>
+    /// <param name="targetFloor">The target floor</param>
+    /// <param name="numberOfPeople">Number of people</param>
+    /// <returns>Nullable object of type <see cref="Elevator"/></returns>
     public Elevator? GetClosestElevator(int targetFloor, int numberOfPeople)
     {
         Elevator? closestElevator = null;
@@ -58,6 +82,10 @@ public sealed class ElevatorManager : IElevatorManager
         return closestElevator;
     }
 
+    /// <summary>
+    /// Moving the elevator to the requested floor
+    /// </summary>
+    /// <param name="elevator"><see cref="Elevator"/> object</param>
     public void CallingElevator(Elevator elevator)
     {
         switch (elevator.FloorNumber)
@@ -76,6 +104,11 @@ public sealed class ElevatorManager : IElevatorManager
         }
     }
 
+    /// <summary>
+    /// Moving the elevator to the destination floor requested from the user
+    /// </summary>
+    /// <param name="elevator"><see cref="Elevator"/> object</param>
+    /// <param name="floorDestination">Floor destination</param>
     public void FloorDestination(Elevator elevator, int floorDestination)
     {
         Console.WriteLine($"There are {elevator.NumberOfPeople} people in the elevator");
@@ -98,6 +131,11 @@ public sealed class ElevatorManager : IElevatorManager
         Thread.Sleep(500);
     }
 
+    /// <summary>
+    /// Method moves the elevator up 
+    /// </summary>
+    /// <param name="elevator"><see cref="Elevator"/> object</param>
+    /// <param name="floor">Floor number</param>
     private static void MovingUp(Elevator elevator, int floor)
     {
         int diff = floor - elevator.FloorNumber;
@@ -110,6 +148,11 @@ public sealed class ElevatorManager : IElevatorManager
         }
     }
 
+    /// <summary>
+    /// Method moves the elevator down
+    /// </summary>
+    /// <param name="elevator"><see cref="Elevator"/> object</param>
+    /// <param name="floor">Floor number</param>
     private static void MovingDown(Elevator elevator, int floor)
     {
         int diff = elevator.FloorNumber - floor;
@@ -122,6 +165,9 @@ public sealed class ElevatorManager : IElevatorManager
         }
     }
 
+    /// <summary>
+    /// User the method to print out the generated elevators
+    /// </summary>
     public void PrintElevatorInformation()
     {
         if (Elevators.Count == 0) return;
