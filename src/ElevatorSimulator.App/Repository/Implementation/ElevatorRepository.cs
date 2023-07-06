@@ -93,7 +93,9 @@ public sealed class ElevatorRepository : IElevator
         }
 
         elevator.CurrentStatus = Status.AVAILABLE;
+        Thread.Sleep(500);
         Console.WriteLine("People exiting the elevator...");
+        Thread.Sleep(500);
     }
 
     private static void MovingUp(Elevator elevator, int floor)
@@ -101,9 +103,9 @@ public sealed class ElevatorRepository : IElevator
         int diff = floor - elevator.FloorNumber;
         for (int i = 0; i < diff; i++)
         {
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
             Console.WriteLine($"Elevator going {Status.UP}");
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
             elevator.FloorNumber++;
         }
     }
@@ -113,9 +115,9 @@ public sealed class ElevatorRepository : IElevator
         int diff = elevator.FloorNumber - floor;
         for (int i = 0; i < diff; i++)
         {
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
             Console.WriteLine($"Elevator going {Status.DOWN}");
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
             elevator.FloorNumber--;
         }
     }
@@ -125,9 +127,11 @@ public sealed class ElevatorRepository : IElevator
         if (Elevators.Count == 0) return;
         foreach (var elevator in Elevators)
         {
+            Console.ForegroundColor = ConsoleColor.Yellow; 
             Console.WriteLine($"\nElevator ID: {elevator.Id}");
             Console.WriteLine($"Status: {elevator.CurrentStatus}");
             Console.WriteLine($"Floor: {elevator.FloorNumber}");
+            Console.ResetColor();
         }
         Console.WriteLine();
     }

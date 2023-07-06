@@ -20,27 +20,30 @@ public class RequestRepository : IRequest
         
         if (!isInWeightLimit)
         {
-            Console.WriteLine("\n Over the weight limit...");
+            Print.PrintError("Over the weight limit...");
             return;
         }
         
-        Console.WriteLine($"\nElevator {elevator.Id} {elevator.CurrentStatus}");
+        Console.WriteLine($"\nElevator selected {elevator.Id} {elevator.CurrentStatus}");
         _elevator.CallingElevator(elevator);
         
-        Console.Write("\nWhich floor are we moving to: ");
-        string movingTo = Console.ReadLine() ?? throw new InvalidOperationException();
+        Print.MoveToInput(out string movingTo);
         _elevator.FloorDestination(elevator, int.Parse(movingTo));
         _elevator.PrintElevatorInformation();
     }
 
     private List<Person> GeneratingRandomPeople(int count, out double totalWeight)
     {
+        Console.WriteLine("\nGenerating people...");
         var people = new List<Person>();
         var random = new Random();
+        
         for (int i = 0; i < count; i++)
         {
             var person = new Person($"P{i}", random.Next(75, 110 + 1));
+            Console.ForegroundColor = ConsoleColor.Yellow; 
             Console.WriteLine(person.ToString());
+            Console.ResetColor();
             people.Add(person);
         }
 
