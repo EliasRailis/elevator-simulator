@@ -8,7 +8,7 @@ public sealed class ElevatorManager : IElevatorManager
 {
     private int _numOfFloors = 0;
     private int _targetFloor = 0;
-    private readonly List<Elevator> Elevators = new();
+    private readonly List<Elevator> _elevators = new();
 
     /// <summary>
     /// Method generates the elevators used in the application
@@ -22,7 +22,7 @@ public sealed class ElevatorManager : IElevatorManager
         var random = new Random();
         for (int i = 0; i < numOfElevators; i++)
         {
-            Elevators.Add(new Elevator($"EL{i}", Status.AVAILABLE, random.Next(0, numOfFloors + 1)));
+            _elevators.Add(new Elevator($"EL{i}", Status.AVAILABLE, random.Next(0, numOfFloors + 1)));
         }
         
         PrintElevatorInformation();
@@ -63,7 +63,7 @@ public sealed class ElevatorManager : IElevatorManager
         _targetFloor = targetFloor;
         int minDifference = int.MaxValue; 
         
-        foreach (var elevator in Elevators)
+        foreach (var elevator in _elevators)
         {
             int difference = Math.Abs(elevator.FloorNumber - targetFloor);
             if (difference < minDifference)
@@ -170,8 +170,8 @@ public sealed class ElevatorManager : IElevatorManager
     /// </summary>
     public void PrintElevatorInformation()
     {
-        if (Elevators.Count == 0) return;
-        foreach (var elevator in Elevators)
+        if (_elevators.Count == 0) return;
+        foreach (var elevator in _elevators)
         {
             Console.ForegroundColor = ConsoleColor.Yellow; 
             Console.WriteLine($"\nElevator ID: {elevator.Id}");

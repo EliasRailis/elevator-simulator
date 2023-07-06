@@ -8,11 +8,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{06315C27-6
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9D354C33-B574-4BDD-9106-AF595E36DAD9}"
-	ProjectSection(SolutionItems) = preProject
-		tests\.gitkeep = tests\.gitkeep
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElevatorSimulator.App", "src\ElevatorSimulator.App\ElevatorSimulator.App.csproj", "{6749DCEC-74C7-487D-AC87-7D44BED90DCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElevatorSimulator.Unit.Tests", "tests\ElevatorSimulator.Unit.Tests\ElevatorSimulator.Unit.Tests.csproj", "{DD726242-F4C4-492A-B06B-7488871759BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,11 +20,16 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6749DCEC-74C7-487D-AC87-7D44BED90DCE} = {6037A6A0-1283-485A-AAC6-E66E161DC53B}
+		{DD726242-F4C4-492A-B06B-7488871759BE} = {9D354C33-B574-4BDD-9106-AF595E36DAD9}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{6749DCEC-74C7-487D-AC87-7D44BED90DCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6749DCEC-74C7-487D-AC87-7D44BED90DCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6749DCEC-74C7-487D-AC87-7D44BED90DCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6749DCEC-74C7-487D-AC87-7D44BED90DCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD726242-F4C4-492A-B06B-7488871759BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD726242-F4C4-492A-B06B-7488871759BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD726242-F4C4-492A-B06B-7488871759BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD726242-F4C4-492A-B06B-7488871759BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
