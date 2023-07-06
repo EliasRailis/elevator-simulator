@@ -4,7 +4,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6037A6A0-128
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{06315C27-6E72-4577-9D2B-9DC6B4B452FB}"
 	ProjectSection(SolutionItems) = preProject
-		docs\.gitkeep = docs\.gitkeep
+		docs\README.md = docs\README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9D354C33-B574-4BDD-9106-AF595E36DAD9}"
