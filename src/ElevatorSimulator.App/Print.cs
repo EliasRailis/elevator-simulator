@@ -47,7 +47,7 @@ public static class Print
         Console.Write("5");
         Console.ResetColor();
         Console.Write("] ");
-        Console.Write("Target floor: ");
+        Console.Write("On Floor (The floor where the people are): ");
         targetFloorInput = Console.ReadLine() ?? throw new InvalidOperationException();
     }
     
@@ -58,7 +58,7 @@ public static class Print
         Console.Write("6");
         Console.ResetColor();
         Console.Write("] ");
-        Console.Write("Which floor are we moving to: ");
+        Console.Write("Destination floor: ");
         movingTo = Console.ReadLine() ?? throw new InvalidOperationException();
     }
 
