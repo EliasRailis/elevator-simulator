@@ -14,7 +14,7 @@ _elevatorService.GenerateElevators(int.Parse(floors), int.Parse(elevators));
 
 Next the application will go in a loop. You will be asked to enter input if you would like to make a request to be processed.
 
-If you enter “N**”** then the application will exit at that point.
+If you enter “N” then the application will exit at that point.
 
 If you enter “Y” then it will ask you to enter two inputs, the number of people that will enter the elevator and your current floor.
 
